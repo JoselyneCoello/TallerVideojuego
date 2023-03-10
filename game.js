@@ -1,10 +1,29 @@
 const canvas = document.querySelector("#game");
 const game = canvas.getContext('2d');
+let canvasSize
+let elementsSize;
 
-window.addEventListener('load', startGame);
+
+
+window.addEventListener('load', setCanvasSize);
+window.addEventListener('resize', setCanvasSize);
 
 function startGame(){
-    let canvasSize;
+    game.font = elementsSize + 'px Verdana';
+    game.textAlign = 'end';
+    for (let i = 1; i <= 10; i++){
+        game.fillText(emojis['X'], elementsSize,elementsSize*i);
+    } 
+    
+    // game.fillRect(100,25,100,100);
+    // game.clearRect(125,50,50,50);
+    // game.font = '25px verdana'
+    // game.fillStyle = 'purple';
+    // game.textAlign = 'left'
+    // game.fillText('PLATZI', 25,25);
+}
+
+function setCanvasSize (){
     if (window.innerHeight > window.innerWidth){
         canvasSize = window.innerWidth * 0.8;
     } else {
@@ -13,22 +32,6 @@ function startGame(){
 
     canvas.setAttribute('width', canvasSize);
     canvas.setAttribute('height', canvasSize);
-
-    const elementsSize = canvasSize /10;
-    console.log({canvasSize, elementsSize});
-    
-    game.font = elementsSize + 'px Verdana';
-    game.textAlign = 'end';
-    for (let i = 1; i <= 10; i++){
-        game.fillText(emojis['X'], elementsSize,elementsSize*i);
-    }
-
-    
-    
-    // game.fillRect(100,25,100,100);
-    // game.clearRect(125,50,50,50);
-    // game.font = '25px verdana'
-    // game.fillStyle = 'purple';
-    // game.textAlign = 'left'
-    // game.fillText('PLATZI', 25,25);
+    elementsSize = canvasSize / 10;
+    startGame();
 }

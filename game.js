@@ -8,20 +8,6 @@ let elementsSize;
 window.addEventListener('load', setCanvasSize);
 window.addEventListener('resize', setCanvasSize);
 
-function startGame(){
-    game.font = elementsSize + 'px Verdana';
-    game.textAlign = 'end';
-    for (let i = 1; i <= 10; i++){
-        game.fillText(emojis['X'], elementsSize,elementsSize*i);
-    } 
-    
-    // game.fillRect(100,25,100,100);
-    // game.clearRect(125,50,50,50);
-    // game.font = '25px verdana'
-    // game.fillStyle = 'purple';
-    // game.textAlign = 'left'
-    // game.fillText('PLATZI', 25,25);
-}
 
 function setCanvasSize (){
     if (window.innerHeight > window.innerWidth){
@@ -34,4 +20,23 @@ function setCanvasSize (){
     canvas.setAttribute('height', canvasSize);
     elementsSize = canvasSize / 10;
     startGame();
+}
+
+function startGame(){
+    game.font = elementsSize + 'px Verdana';
+    game.textAlign = 'end';
+    const map = maps[1];
+    const mapRows = map.trim().split('\n');
+    const mapRowCols = mapRows.map(row => row.trim().split(''));
+    for (let row = 1; row <= 10; row++){
+        for (let col = 1; col <= 10; col++){
+            game.fillText(emojis[mapRowCols[row-1][col-1]], elementsSize*col,elementsSize*row);
+        } 
+    } 
+    // game.fillRect(100,25,100,100);
+    // game.clearRect(125,50,50,50);
+    // game.font = '25px verdana'
+    //game.fillStyle = 'purple';
+    // game.textAlign = 'left'
+    // game.fillText('PLATZI', 25,25);
 }

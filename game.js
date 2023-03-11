@@ -4,6 +4,7 @@ const btnUp = document.querySelector('#up');
 const btnLeft = document.querySelector('#left');
 const btnRight = document.querySelector('#right');
 const btnDown = document.querySelector('#down');
+let enemyPositions = [];
 const playerPosition = {
     x: undefined,
     y:undefined,
@@ -43,6 +44,7 @@ function startGame(){
     const mapRows = map.trim().split('\n');
     const mapRowCols = mapRows.map(row => row.trim().split(''));
     
+    enemyPositions = [];
     game.clearRect(0,0, canvasSize, canvasSize);
 
     mapRowCols.forEach((row, rowI) => {
@@ -57,10 +59,17 @@ function startGame(){
                     playerPosition.y = posY;
                 }
             } else if( col == 'I'){
-
+                giftPosition.x = posX;
+                giftPosition.y = posY;
+            } else if (col == 'X') {
+                enemyPositions.push({
+                    x: posX,
+                    y: posY,
+                })
             }
+
             game.fillText(emoji,posX , posY);
-        })
+        });
     });
 
     movePlayer();
@@ -80,6 +89,21 @@ function startGame(){
 }
 
 function movePlayer(){
+    const giftPositionX = playerPosition.x.toFixed(3) == giftPosition.x.toFixed(3);
+    const giftPositionY = playerPosition.y.toFixed(3) == giftPosition.y.toFixed(3);
+    const giftCollision = giftPositionX && giftPositionY;
+    if( giftCollision){
+
+    }
+    const enemyCollision = enemyPositions.find(enemy => {
+        const enemyCollisionX = enemy.x.toFixed(3) == playerPosition.x.toFixed(3);
+        const enemyCollisionY = enemy.y.toFixed(3) == playerPosition.y.toFixed(3);
+        return enemyCollisionX && enemyCollisionY;
+    });
+    if (enemyCollision){
+
+    }
+
     game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y);
 }
 

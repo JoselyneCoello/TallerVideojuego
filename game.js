@@ -4,9 +4,9 @@ const btnUp = document.querySelector('#up');
 const btnLeft = document.querySelector('#left');
 const btnRight = document.querySelector('#right');
 const btnDown = document.querySelector('#down');
-const playerPositiion = {
-    x: undefined;
-    y:undefined;
+const playerPosition = {
+    x: undefined,
+    y:undefined,
 };
 
 let canvasSize
@@ -34,11 +34,11 @@ function setCanvasSize (){
 function startGame(){
     game.font = elementsSize + 'px Verdana';
     game.textAlign = 'end';
-    const map = maps[1];
+    const map = maps[0];
     const mapRows = map.trim().split('\n');
     const mapRowCols = mapRows.map(row => row.trim().split(''));
     
-    game.clearRect(0.0, canvasSize, canvasSize);
+    game.clearRect(0,0, canvasSize, canvasSize);
 
     mapRowCols.forEach((row, rowI) => {
         row.forEach((col, colI) =>{
@@ -47,8 +47,10 @@ function startGame(){
             const posY = elementsSize * (rowI + 0.85);
 
             if (col == 'O'){
-                playerPositiion.x = posX;
-                playerPositiion.y = posY
+                if (!playerPosition.x && !playerPosition.y){
+                    playerPosition.x = posX;
+                    playerPosition.y = posY;
+                }
             }
             game.fillText(emoji,posX , posY);
         })
@@ -71,7 +73,7 @@ function startGame(){
 }
 
 function movePlayer(){
-    game.fillText(emojis['PLAYER'], playerPositiion.x, playerPositiion.y);
+    game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y);
 }
 
 window.addEventListener('keydown', moveByKeys);
@@ -91,15 +93,18 @@ function moveByKeys(event){
         moveDown();
 }
 function moveUp(){
-    playerPositiion.y -= elementsSize;
-    movePlayer();
+    playerPosition.y -= elementsSize;
+    startGame();
 }
 function moveLeft(){
-    
+    playerPosition.x -= elementsSize;
+    startGame();
 }
 function moveRight(){
-    
+    playerPosition.x += elementsSize;
+    startGame();
 }
 function moveDown(){
-    
+    playerPosition.y += elementsSize;
+    startGame();
 }

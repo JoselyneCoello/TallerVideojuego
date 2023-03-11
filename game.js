@@ -8,6 +8,11 @@ const playerPosition = {
     x: undefined,
     y:undefined,
 };
+const giftPosition = {
+    x: undefined,
+    y:undefined,
+};
+
 
 let canvasSize
 let elementsSize;
@@ -51,6 +56,8 @@ function startGame(){
                     playerPosition.x = posX;
                     playerPosition.y = posY;
                 }
+            } else if( col == 'I'){
+
             }
             game.fillText(emoji,posX , posY);
         })

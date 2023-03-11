@@ -4,6 +4,10 @@ const btnUp = document.querySelector('#up');
 const btnLeft = document.querySelector('#left');
 const btnRight = document.querySelector('#right');
 const btnDown = document.querySelector('#down');
+const playerPositiion = {
+    x: undefined;
+    y:undefined;
+};
 
 let canvasSize
 let elementsSize;
@@ -39,9 +43,16 @@ function startGame(){
             const emoji = emojis[col];
             const posX =  elementsSize * (colI + 1.2);
             const posY = elementsSize * (rowI + 0.85);
+
+            if (col == 'O'){
+                playerPositiion.x = posX;
+                playerPositiion.y = posY
+            }
             game.fillText(emoji,posX , posY);
         })
     });
+
+    movePlayer();
     
     // for (let row = 1; row <= 10; row++){
     //     for (let col = 1; col <= 10; col++){
@@ -56,6 +67,11 @@ function startGame(){
     // game.textAlign = 'left'
     // game.fillText('PLATZI', 25,25);
 }
+
+function movePlayer(){
+    game.fillText(emojis['PLAYER'], playerPositiion.x, playerPositiion.y);
+}
+
 window.addEventListener('keydown', moveByKeys);
 btnUp.addEventListener('click', moveUp);
 btnLeft.addEventListener('click', moveLeft);
@@ -73,7 +89,7 @@ function moveByKeys(event){
         moveDown();
 }
 function moveUp(){
-
+    playerPositiion.y -= elementsSize;
 }
 function moveLeft(){
     

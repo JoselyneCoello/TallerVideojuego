@@ -38,6 +38,8 @@ function startGame(){
     const mapRows = map.trim().split('\n');
     const mapRowCols = mapRows.map(row => row.trim().split(''));
     
+    game.clearRect(0.0, canvasSize, canvasSize);
+
     mapRowCols.forEach((row, rowI) => {
         row.forEach((col, colI) =>{
             const emoji = emojis[col];
@@ -90,6 +92,7 @@ function moveByKeys(event){
 }
 function moveUp(){
     playerPositiion.y -= elementsSize;
+    movePlayer();
 }
 function moveLeft(){
     

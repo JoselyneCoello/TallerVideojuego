@@ -18,6 +18,7 @@ const giftPosition = {
 let canvasSize
 let elementsSize;
 let level = 0;
+let lives = 3;
 
 
 window.addEventListener('load', setCanvasSize);
@@ -105,7 +106,7 @@ function movePlayer(){
         return enemyCollisionX && enemyCollisionY;
     });
     if (enemyCollision){
-
+        levelfail();
     }
 
     game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y);
@@ -116,9 +117,22 @@ function levelwin(){
     startGame();
 }
 
+function levelfail(){
+    lives--;
+    if (lives <= 0){
+        level = 0;
+        lives = 3;
+    }
+    playerPosition.x = undefined;
+    playerPosition.y = undefined;
+    startGame();
+}
+
 function gameWin(){
     console.log("!Ganasteee!");
 }
+
+
 window.addEventListener('keydown', moveByKeys);
 btnUp.addEventListener('click', moveUp);
 btnLeft.addEventListener('click', moveLeft);

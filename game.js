@@ -17,7 +17,7 @@ const giftPosition = {
 
 let canvasSize
 let elementsSize;
-
+let level = 0;
 
 
 window.addEventListener('load', setCanvasSize);
@@ -40,7 +40,11 @@ function setCanvasSize (){
 function startGame(){
     game.font = elementsSize + 'px Verdana';
     game.textAlign = 'end';
-    const map = maps[0];
+    const map = maps[level];
+    if (!map){
+        gameWin();
+        return;
+    }
     const mapRows = map.trim().split('\n');
     const mapRowCols = mapRows.map(row => row.trim().split(''));
     
@@ -93,7 +97,7 @@ function movePlayer(){
     const giftPositionY = playerPosition.y.toFixed(3) == giftPosition.y.toFixed(3);
     const giftCollision = giftPositionX && giftPositionY;
     if( giftCollision){
-
+        levelwin();
     }
     const enemyCollision = enemyPositions.find(enemy => {
         const enemyCollisionX = enemy.x.toFixed(3) == playerPosition.x.toFixed(3);
@@ -107,6 +111,14 @@ function movePlayer(){
     game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y);
 }
 
+function levelwin(){
+    level++;
+    startGame();
+}
+
+function gameWin(){
+    console.log("!Ganasteee!");
+}
 window.addEventListener('keydown', moveByKeys);
 btnUp.addEventListener('click', moveUp);
 btnLeft.addEventListener('click', moveLeft);
